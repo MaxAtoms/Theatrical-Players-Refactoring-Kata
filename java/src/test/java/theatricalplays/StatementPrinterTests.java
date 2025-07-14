@@ -1,10 +1,10 @@
 package theatricalplays;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import theatricalplays.play.Comedy;
+import theatricalplays.play.Tragedy;
 
 import java.util.List;
-import java.util.Map;
 
 import static org.approvaltests.Approvals.verify;
 
@@ -12,18 +12,13 @@ class StatementPrinterTests {
 
     @Test
     void exampleStatement() {
-        Map<String, Play> plays = Map.of(
-                "hamlet",  new Tragedy("Hamlet"),
-                "as-like", new Comedy("As You Like It"),
-                "othello", new Tragedy("Othello"));
-
         Invoice invoice = new Invoice("BigCo", List.of(
-                new Performance("hamlet", 55),
-                new Performance("as-like", 35),
-                new Performance("othello", 40)));
+                new Performance(new Tragedy("Hamlet"), 55),
+                new Performance(new Comedy("As You Like It"), 35),
+                new Performance(new Tragedy("Othello"), 40)));
 
-        StatementPrinter statementPrinter = new StatementPrinter();
-        var result = statementPrinter.print(invoice, plays);
+		PlayStatementCreator statementCreator = new PlayStatementCreator(new PlaintextStatementPrinter());
+        var result = statementCreator.createStatement(invoice);
 
         verify(result);
     }

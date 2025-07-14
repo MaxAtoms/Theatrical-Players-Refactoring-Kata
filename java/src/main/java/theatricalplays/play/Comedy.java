@@ -1,7 +1,7 @@
-package theatricalplays;
+package theatricalplays.play;
 
 public class Comedy extends Play {
-	protected Comedy(String name) {
+	public Comedy(String name) {
 		super(name);
 	}
 
