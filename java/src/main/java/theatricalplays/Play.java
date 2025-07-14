@@ -1,4 +1,14 @@
 package theatricalplays;
 
-public record Play(String name, PlayType type) {}
+public abstract class Play implements PlayInvoice {
+	private final String name;
+
+	protected Play(String name) {
+		this.name = name;
+	}
+
+	public String name() {
+		return name;
+	}
+}
 
