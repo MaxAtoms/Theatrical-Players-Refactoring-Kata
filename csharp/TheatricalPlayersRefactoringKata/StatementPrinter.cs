@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace TheatricalPlayersRefactoringKata
 {
@@ -28,24 +29,12 @@ namespace TheatricalPlayersRefactoringKata
 
         private int TotalAmount(Invoice invoice, Dictionary<string, Play> plays)
         {
-            var total = 0;
-            foreach(var performance in invoice.Performances) 
-            {
-                var play = plays[performance.PlayID];
-                total += play.AmountFor(performance);
-            }
-            return total;
+            return invoice.Performances.Sum(performance => plays[performance.PlayID].AmountFor(performance));
         }
 
         private int TotalVolumeCredits(Invoice invoice, Dictionary<string, Play> plays)
         {
-            var total = 0;
-            foreach(var performance in invoice.Performances) 
-            {
-                var play = plays[performance.PlayID];
-                total += play.VolumeCreditsFor(performance);
-            }
-            return total;
+            return invoice.Performances.Sum(performance => plays[performance.PlayID].VolumeCreditsFor(performance));
         }
 
         private decimal FormatAsCurrency(int amount)
